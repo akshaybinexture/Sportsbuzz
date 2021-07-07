@@ -1,0 +1,93 @@
+{% extends 'users/../../../articles/templates/articles/base.html' %}
+{% block content %}
+<!-- Main Content-->
+
+    <section id="heading">
+        <div class="container">
+            <div class="row">
+                <div class="upper-section">
+                    <h1 id="heading" class="title" style="color: #333;font-weight: 400;font-size: 45px;
+                        line-height: 57px;text-align: center;margin-bottom: 2rem; width: 100%;">{{ article_id.heading }}</h1>
+                    <img src="{{ article_id.img_url }}" alt="img here" style="width: 1115px;height: 592px">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<main class="mb-4">
+    <div class="container px-4">
+        <div class="row  justify-content">
+            <div class="col-md-6">
+                {% for i in body  %}
+                    <p>{{ i }}</p>
+                {% endfor %}
+
+
+                <h2>Comments...</h2>
+                    <br>
+                    {% if not article_id.article_detail_id.comments.all %}
+                        No Comments...
+                    {% else %}
+                        <br>
+                        {% for comment in article_id.article_detail_id.comments.all %}
+                            <br>
+                            <strong>
+                                {{ comment.name }}-
+                                <small>{{ comment.date_added }}</small>
+                            </strong>
+                            <div>
+                                {{ comment.body }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+
+                <form method="POST" action="{% url 'add-comment' article_id.article_detail_id.article_id %}" class="mt-5">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <img class="rounded-circle" src="{{ request.user.profile.image.url }}" alt="" style="height: 45px; width: 45px;">
+                        {{ form.body }}
+                    </div>
+                    <button class="btn btn-primary btn-sm" type="submit">Add</button>
+                </form>
+
+            </div>
+            <div class="col-md-6 ">
+                <p style="color: grey">
+                    Posted on {{ article_id.date_posted }}
+                </p>
+                <form action="{% url 'like_article' article_id.article_detail_id.article_id %}" method="POST" style="margin: 2rem 0;">
+                    {% csrf_token %}
+                    {% if user.is_authenticated %}
+                        {% if liked %}
+                            <button type="submit", name="post_id", value="{{ article_id.article_detail_id.article_id }}",
+                                class="btn btn-danger btn-sm mr-2"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Unlike
+                            </button>
+                        {% else %}
+                            <button type="submit", name="post_id", value="{{ article_id.article_detail_id.article_id }}",
+                                class="btn btn-primary btn-sm mr-2"><i class="fa fa-thumbs-up" aria-hidden="true"></i> Like
+                            </button>
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-primary btn-sm mr-2"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <a href="{% url 'login' %}">LOGIN</a>
+                        </button>
+                    {% endif %}
+                        {% if total_likes > 0 %}
+                            {{ total_likes }}
+                        {% endif %}
+                </form>
+                {% if article_id.tweet_url  %}
+{#                    <div class="akshay-embed" data-src="twitter">#}
+{#                        <div class="twitter-tweet twitter-tweet-rendered">#}
+                            <iframe scrolling="no" src="{{ article_id.tweet_url }}" style="width: 100%;height :800px"></iframe>
+{#                        </div>#}
+{#                    </div>#}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

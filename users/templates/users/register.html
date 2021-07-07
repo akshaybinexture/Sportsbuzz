@@ -1,0 +1,52 @@
+{% extends 'users/../../../articles/templates/articles/base.html' %}
+{% load socialaccount %}
+{% load account %}
+{% block content %}
+    <div class="container">
+    {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p style="color: red"> {{ error }} </p>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div id="login-box">
+
+        <div class="left">
+            <h1>Sign up</h1>
+            <form method="POST">
+
+                {% csrf_token %}
+                {{ form.username }}
+                {{ form.email }}
+                {{ form.password1 }}
+                {{ form.password2 }}
+                 <input type="submit" name="signup_submit" value="Sign me up" />
+                <small class="text-muted ml-1">
+                        <a href="{% url 'login' %}" style="font-size: 16px">Sign In</a>
+                </small>
+             </form>
+        </div>
+
+
+        <div class="right">
+            <span class="loginwith">Sign in with<br />social network</span>
+
+{#            <button href="" class="social-signin facebook">Log in with facebook</button>#}
+{#            <a href="{% provider_login_url "facebook" method="oauth2" %}" type="button" class="col-3 btn btn-info">Facebook</a>#}
+{#            <button class="social-signin github">Log in with Github</button>#}
+            <a class="btn btn-outline-dark btn-block mb-2" href="{% provider_login_url "facebook" %}" role="button"
+               style="text-transform:none;font-size: 14px;width: 248px;">
+              <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Facebook sign-up" src="https://cdn1.iconfinder.com/data/icons/social-media-2285/512/Colored_Facebook3_svg-512.png" />
+              Sign Up with Facebook
+            </a>
+            <a class="btn btn-outline-dark" href="{% provider_login_url "google" google="https://sport-buzz.herokuapp.com/accounts/google/login/" next="" %}" role="button" style="text-transform:none">
+                <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-up" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                Sign Up with Google
+            </a>
+{#            <a href="{% provider_login_url "google" google="http://127.0.0.1:8000/accounts/google/login/" next="" %}" type="button" class="social-signin facebook ">Google</a>#}
+        </div>
+        <div class="or">OR</div>
+    </div>
+{% endblock content %}

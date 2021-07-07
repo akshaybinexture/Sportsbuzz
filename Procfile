@@ -1,0 +1,1 @@
+web: gunicorn Sportsbuzz.wsgi --log-file -

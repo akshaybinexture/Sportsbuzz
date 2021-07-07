@@ -1,0 +1,62 @@
+{% extends 'articles/base.html' %}
+{% load static %}
+{% load socialaccount %}
+{% block content %}
+
+    <form method="POST">
+
+        <div id="login-box">
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p style="color: red"> {{ error }} </p>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <div class="left">
+            <h1>Sign IN</h1>
+            <form method="POST">
+
+                {% csrf_token %}
+                <input type="text" name="username" class="form-control"  placeholder="Username" required>
+                <input type="password" name="password" class="form-control"  placeholder="Password" required>
+                <div>
+                    {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                    {% endif %}
+                    <input type="submit" name="signup_submit" value="Sign In"/>
+                    <small class="text-muted ml-1">
+                        <a href="{% url 'password_reset' %}" style="font-size: 12px">Forgot Password</a>
+                    </small>
+
+                </div>
+             </form>
+        </div>
+
+
+        <div class="right">
+            <span class="loginwith">Sign in with<br />social network</span>
+
+            <a class="btn btn-outline-dark btn-block mb-2" href="{% provider_login_url "facebook" %}" role="button"
+               style="text-transform:none;font-size: 14px;width: 237px;">
+              <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Facebook sign-up" src="https://cdn1.iconfinder.com/data/icons/social-media-2285/512/Colored_Facebook3_svg-512.png" />
+              Log In with Facebook
+            </a>
+            <a class="btn btn-outline-dark" href="
+{% provider_login_url "google" google="https://sport-buzz.herokuapp.com/accounts/google/login/" next="" %}" role="button" style="text-transform:none">
+                <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-up" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                Log In with Google
+            </a>
+
+        </div>
+        <div class="or">OR</div>
+        </div>
+
+
+{#        <h1> login</h1>#}
+{#              <input type="text" name="username" class="form-control" required>#}
+{##}
+{#          <input type="password" name="password" class="form-control" required>#}
+{#        <input type="submit" value="Login" class="btn btn-secondary btn-block">#}
+    </form>
+{% endblock content %}

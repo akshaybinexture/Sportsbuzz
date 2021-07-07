@@ -1,0 +1,315 @@
+{% extends 'articles/base.html' %}
+{% block content %}
+{#    <form action="" method="GET">#}
+{#            <select id="sports" name="sports"  onchange="this.form.submit();">#}
+{#                <a href="{% url 'home' %}">All</a>#}
+{#                <option>--</option>#}
+{#                <option value="all">All</option>#}
+{#                <option value="cricket">cricket</option>#}
+{#                <option value="football">football</option>#}
+{#                <option value="tennis">Tennis</option>#}
+{#                <option value="wwe">Wwe</option>#}
+{#                <option value="basketball">Basketball</option>#}
+{##}
+{##}
+{#</select>#}
+{#    </form>#}
+{#    <div class="container">#}
+{#        <div>#}
+{#            <div class="btn-group">#}
+{#        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">#}
+{#            Drop it#}
+{#        </button>#}
+{#        <ul class="dropdown-menu" role="menu">#}
+{#            <li>#}
+{#                <a href="">Google</a>#}
+{#                <a href="">Facebook</a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{#        </div>#}
+{#        <div class=" col-md-7 main-header" style="margin-bottom:10px;">#}
+{##}
+{#            <form action='' method='GET'>#}
+{#                <button type='submit' > sort me </button>#}
+{#                <a href="#" class="recommended-switch " onclick="">Latest</a>#}
+{##}
+{#            </form>#}
+{##}
+{##}
+{#        </div>#}
+{##}
+{#    </div>#}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 ">
+                <nav class="navbar  navbar-expand-lg navbar-light bg-white mb-4" style="padding: 0">
+                {#  <a class="navbar-brand" href="#">Navbar</a>#}
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse " id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link recommended-switch {% if nbar == 'home' %}active{% endif %}"  href="{% url 'home' %}">Recommended <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link recommended-switch " href="{% url 'contact' %}">Latest</a>
+                            </li>
+{#                            <form action="" method="GET">#}
+{#            <select id="sports" name="sports"  onchange="this.form.submit();">#}
+{#                <a href="{% url 'home' %}">All</a>#}
+{#                <option selected>--</option>#}
+{#                <option value="all">All</option>#}
+{#                <option value="cricket">cricket</option>#}
+{#                <option value="football">football</option>#}
+{#                <option value="tennis">Tennis</option>#}
+{#                <option value="wwe">Wwe</option>#}
+{#                <option value="basketball">Basketball</option>#}
+{#</select>#}
+{#    </form>#}
+                            <form action="" method="GET">
+                                <div class="input-group" style="margin-left: 5px;margin-top: 2px;">
+                                    {#  <div class="input-group-prepend">#}
+                                    {#    <label class="input-group-text" for="inputGroupSelect01">Options</label>#}
+                                    {#  </div>#}
+                                    <select name="sports" class="custom-select" id="inputGroupSelect01" onchange="this.form.submit();">
+                                        {% if topic %}
+
+                                            <option selected>{{ topic }}</option>
+                                        {% else %}
+                                            <option selected>Sports</option>
+
+                                        {% endif %}
+                                        <option value="All">All</option>
+                                        <option value="cricket">Cricket</option>
+                                        <option value="football">Football</option>
+                                        <option value="tennis">Tennis</option>
+                                        <option value="wwe">WWE</option>
+                                        <option value="basketball">Basketball</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+
+        {% for article in post_list %}
+            <div class="container">
+        <div class="row">
+            <div class="col-7 mt-3">
+                <div class="card" style="height: 170px;">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                            <img class="" src="{{ article.img_url }}" alt="Card image cap" style="width: 300px;height: 169px">
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'article-detail' article.article_id %}">
+                                <p class="card-text m-0">{{ article.heading }}</p>
+                            </a>
+                                <small class="text-muted" style="position: absolute;bottom: 6px;">{{ article.whenpublished }}</small>
+                        </div>
+                    </div>
+    {#                <div class="card-footer">#}
+    {#                    <small class="text-muted">Last updated 3 mins ago</small>#}
+    {##}
+    {##}
+    {#                </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {#        <article class="media content-section">#}
+    {#          <div class="media-body">#}
+    {#            <div class="article-metadata">#}
+    {#              <a class="mr-2" href="{% url 'article-detail' post.author.username %}">{{ post.author }}</a>#}
+    {#                <iframe src=""></iframe>#}
+    {#                <h3 class="article-content">{{ article.heading }}</h3>#}
+    {#                <img src="{{ article.img_url }}">#}
+    {#                <small class="text-muted">{{ article.date_posted|date:"F d, Y" }}</small>#}
+    {#            </div>#}
+    {#            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>#}
+    {#              <p class="article-content"><b>Category: </b><a href="{% url 'category' post.category %}">{{ post.category }}</a>#}
+    {#              </p>#}
+    {##}
+    {##}
+    {#          </div>#}
+    {#        </article>#}
+        {% endfor %}
+
+
+{#    {% if is_paginated %}#}
+{#        {% if page_obj.has_previous %}#}
+{#            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>#}
+{#            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>#}
+{#        {% endif %}#}
+{##}
+{#      {% for num in page_obj.paginator.page_range %}#}
+{#          {% if page_obj.number == num %}#}
+{#              <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>#}
+{#          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}#}
+{#              <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>#}
+{#          {% endif %}#}
+{#      {% endfor %}#}
+{##}
+{#      {% if page_obj.has_next %}#}
+{#          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>#}
+{#          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>#}
+{#      {% endif %}#}
+{#    {% endif %}#}
+{##}
+    <br>
+    {% if post_list.has_other_pages %}
+        <div>
+            <nav aria-label="Page navigation conatiner"></nav>
+                <ul class="pagination justify-content-center">
+                    {% if post_list.has_previous %}
+                        <li><a href="?page={{ post_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                    {% endif %}
+                    {% if post_list.has_next %}
+                        <li><a href="?page={{ post_list.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+</div>
+{% endif %}
+
+
+{#    <!-- Main Content-->#}
+{#        <div class="container px-4 px-lg-5">#}
+{#            <div class="row gx-4 gx-lg-5 justify-content-center">#}
+{#                <div class="col-md-10 col-lg-8 col-xl-7">#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="#">#}
+{#                            <h4 class="post-title">Man must explore, and this is exploration at its greatest</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/10e77-16243747345010-500.jpg">#}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sports Buzz</a>#}
+{#                            on September 24, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="#">#}
+{#                            <h4 class="post-title">WTC final:  "I think that backfired as mostly it does"- Sanjay Manjrekar on Ravindra Jadeja's selection against New Zealand</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/4aa35-16245926146866-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sports Buzz</a>#}
+{#                            on September 18, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="post.html">#}
+{#                            <h4 class="post-title">WTC final:  "I think that backfired as mostly it does"- Sanjay Manjrekar on Ravindra Jadeja's selection against New Zealand</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/4aa35-16245926146866-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sports Buzz</a>#}
+{#                            on August 24, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="post.html">#}
+{#                            <h4 class="post-title">Euro 2020: 3 La Liga Players who have benefitted the most from the tournament’s rescheduling</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/d17bf-16245940209214-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sportz buzz</a>#}
+{#                            on July 8, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="post.html">#}
+{#                            <h4 class="post-title">WTC final:  "I think that backfired as mostly it does"- Sanjay Manjrekar on Ravindra Jadeja's selection against New Zealand</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/4aa35-16245926146866-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sportz buzz</a>#}
+{#                            on July 8, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="post.html">#}
+{#                            <h4 class="post-title">WWE Rumor Roundup: Top name to switch brands, Female superstar comes out as bisexual, Roman Reigns to be backstabbed?</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/471d6-16245579021391-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sportz buzz</a>#}
+{#                            on July 8, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="post.html">#}
+{#                            <h4 class="post-title">WTC final:  "I think that backfired as mostly it does"- Sanjay Manjrekar on Ravindra Jadeja's selection against New Zealand</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/4aa35-16245926146866-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sportz buzz</a>#}
+{#                            on July 8, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Post preview-->#}
+{#                    <div class="post-preview">#}
+{#                        <a href="{% url 'article-detail' %}">#}
+{#                            <h4 class="post-title">WTC final: "Virat is trying to say 'Don't take your place for granted'": Deep Dasgupta</h4>#}
+{#                        </a>#}
+{#                        <img style="width" src="https://staticg.sportskeeda.com/editor/2021/06/25b85-16245975473893-500.jpg">#}
+{##}
+{#                        <p class="post-meta">#}
+{#                            Posted by#}
+{#                            <a href="#!">Sportz buzz</a>#}
+{#                            on July 8, 2020#}
+{#                        </p>#}
+{#                    </div>#}
+{#                    <!-- Divider-->#}
+{#                    <hr class="my-4" />#}
+{#                    <!-- Pager-->#}
+{#                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{% endblock content %}

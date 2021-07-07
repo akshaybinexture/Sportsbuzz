@@ -1,0 +1,17 @@
+{% extends 'articles/base.html' %}
+{% block content %}
+<h1>
+    HOMEEEE
+</h1>
+
+{% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+    <br>
+    <a class="btn btn-primary" href="{% url 'change_password' %}">Password change</a>
+
+{% else %}
+        <a class="btn btn-primary" href="{% url 'register' %}">REGISTER</a>
+        <a class="btn btn-primary" href="{% url 'login' %}">LOGIN</a>
+
+{% endif %}
+{% endblock content %}
