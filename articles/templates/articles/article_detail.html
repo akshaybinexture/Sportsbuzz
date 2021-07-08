@@ -26,31 +26,53 @@
 
 
                 <h2>Comments...</h2>
-                    <br>
                     {% if not article_id.article_detail_id.comments.all %}
                         No Comments...
                     {% else %}
-                        <br>
+
                         {% for comment in article_id.article_detail_id.comments.all %}
                             <br>
-                            <strong>
-                                {{ comment.name }}-
-                                <small>{{ comment.date_added }}</small>
-                            </strong>
-                            <div>
-                            <p>{{ comment.body }}</p>
+
+                            <div style="border-left: 6px solid black;
+                            background-color: white;
+                            border-radius: 5px"}>
+                            <hr>
+                                <div class="ml-3" style="margin-bottom:12px">
+                                        <u style="font-weight: bold">{{ comment.name }}</u>
+                                    <small>
+                                        {{ comment.whenpublished }}
+                                        </small>
+                                </div>
+
+{#                            <div class="">#}
+                                <div class="ml-3">
+                                    {{ comment.body }}
+                                    <hr>
+                                </div>
                             </div>
+{#                            </div>#}
                         {% endfor %}
                     {% endif %}
+
+
+
+            <strong>
+                                <h6>{{ comment.name }}</h6>
+                                <small>{{ comment.date_added }}</small>
+                            </strong>
+{#                            <div class="">#}
+                            <p>{{ comment.body }}</p>
+
+
 
 
                 <form method="POST" action="{% url 'add-comment' article_id.article_detail_id.article_id %}" class="mt-5">
                     {% csrf_token %}
                     <div class="form-group">
-                        <img class="rounded-circle" src="{{ request.user.profile.image.url }}" alt="" style="height: 45px; width: 45px;">
+                        <img class="rounded-circle" src="{{ request.user.profile.image.url }}" alt="" style="margin-top: 6px;height: 45px; width: 45px;">
                         {{ form.body }}
                     </div>
-                    <button class="btn btn-primary btn-sm" type="submit">Add</button>
+                    <button class="btn btn-primary btn-sm"style="margin-top: 11px;" type="submit">Add</button>
                 </form>
 
             </div>
@@ -79,6 +101,7 @@
                             {{ total_likes }}
                         {% endif %}
                 </form>
+            <div class="fb-share-button" data-href="http://127.0.0.1:8000/article-detail/{{ article_id.article_detail_id.article_id }}/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Farticle-detail%2F856383%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
                 {% if article_id.tweet_url  %}
 {#                    <div class="akshay-embed" data-src="twitter">#}
 {#                        <div class="twitter-tweet twitter-tweet-rendered">#}
