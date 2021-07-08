@@ -1,6 +1,6 @@
 from django.db import models
 import uuid
-# Create your models here.
+from django.urls import reverse
 import math
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -106,5 +106,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return '%s - %s' % (self.article.heading, self.name.username)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('home')
 
 
