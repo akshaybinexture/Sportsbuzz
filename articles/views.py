@@ -13,8 +13,12 @@ from django.http import HttpResponseRedirect
 
 def home(request):
     # topic = request.GET.get('sports')
-    object_list = Article.objects.all()
     cat_menu = Category.objects.all()
+    # if request.method == 'POST':
+    #     if 'latest_article' in request.POST:
+    #         object_list = Article.objects.order_by('-date_posted')
+    # else:
+    object_list = Article.objects.all().order_by('article_detail__likes')
     # if topic == "All":
     #     object_list = Article.objects.all()
     #
@@ -25,7 +29,7 @@ def home(request):
     # context = {
     #     'articles': Article.objects.all()
     # }
-    paginator = Paginator(object_list, 10)  # 3 posts in each page
+    paginator = Paginator(object_list, 20)  # 10 posts in each page
     page = request.GET.get('page')
     try:
         post_list = paginator.page(page)
@@ -48,6 +52,36 @@ def home(request):
                   {'page': page,
                    'post_list': post_list,
                    'nbar': 'home',
+                   'cat_menu': cat_menu},
+                  )
+
+def latest_article( request):
+    cat_menu = Category.objects.all()
+    object_list = Article.objects.all().order_by('-date_posted')
+
+    paginator = Paginator(object_list, 20)  # 10 posts in each page
+    page = request.GET.get('page')
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        post_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        post_list = paginator.page(paginator.num_pages)
+    # return render(request,
+    #               'articles/home.html',
+    #               {'page': page,
+    #                'post_list': post_list,
+    #                'topic': topic,
+    #                'nbar': 'home',
+    #                'cat_menu': cat_menu},
+    #               )
+    return render(request,
+                  'articles/latest_article.html',
+                  {'page': page,
+                   'post_list': post_list,
+                   'nbar': 'latest',
                    'cat_menu': cat_menu},
                   )
 
@@ -104,6 +138,7 @@ def add_comment(request, **kwargs):
 def categoryview(request, cats):
 
     category_posts = Article.objects.filter(category=cats)
+    category_posts = category_posts.order_by('-date_posted')
     cat_menu = Category.objects.all()
     paginator = Paginator(category_posts, 10)  # 3 posts in each page
     page = request.GET.get('page')

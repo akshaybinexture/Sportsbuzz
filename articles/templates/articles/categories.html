@@ -54,9 +54,16 @@
                             <li class="nav-item">
                                 <a class="nav-link recommended-switch {% if nbar == 'home' %}active{% endif %}"  href="{% url 'home' %}">Recommended <span class="sr-only">(current)</span></a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link recommended-switch " href="{% url 'contact' %}">Latest</a>
+                             <li class="nav-item">
+                                <a class="nav-link recommended-switch {% if nbar == 'latest' %}active{% endif %}"  href="{% url 'latest-article' %}">Latest <span class="sr-only">(current)</span></a>
                             </li>
+{#                            <li class="nav-item ">#}
+{#                                <form action="." method="POST">#}
+{#                                    {% csrf_token %}#}
+{#                                    <input class="btn "  name="latest_article" type="submit" >Latest</input>#}
+{##}
+{#                                </form>                            #}
+{#                            </li>#}
 {#                            <form action="" method="GET">#}
 {#                                <div class="input-group" style="margin-left: 5px;margin-top: 2px;">#}
                                     {#  <div class="input-group-prepend">#}
