@@ -80,7 +80,7 @@
 {#                                </div>#}
 {#                            </form>#}
                         </ul>
-                        <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto">
                             {% if cat_menu %}
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#"
@@ -105,53 +105,31 @@
     </div>
 
 
-
+    {% if category_posts %}
         {% for article in post_list %}
             <div class="container">
-        <div class="row">
-            <div class="col-7 mt-3">
-                <div class="card" style="height: 170px;">
-                    <div class="card-horizontal">
-                        <div class="img-square-wrapper">
-                            <img class="" src="{{ article.img_url }}" alt="Card image cap" style="width: 300px;height: 169px">
-                        </div>
-                        <div class="card-body">
-                            <a href="{% url 'article-detail' article.article_id %}">
-                                <p class="card-text m-0">{{ article.heading }}</p>
-                            </a>
-                                <small class="text-muted" style="position: absolute;bottom: 6px;">{{ article.whenpublished }}</small>
+                <div class="row">
+                    <div class="col-7 mt-3">
+                        <div class="card" style="height: 170px;">
+                            <div class="card-horizontal">
+                                <div class="img-square-wrapper">
+                                    <img class="" src="{{ article.img_url }}" alt="Card image cap" style="width: 300px;height: 169px">
+                                </div>
+                                <div class="card-body">
+                                    <a href="{% url 'article-detail' article.article_id %}">
+                                        <p class="card-text m-0">{{ article.heading }}</p>
+                                    </a>
+                                        <small class="text-muted" style="position: absolute;bottom: 6px;">{{ article.whenpublished }}</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
-    {#                <div class="card-footer">#}
-    {#                    <small class="text-muted">Last updated 3 mins ago</small>#}
-    {##}
-    {##}
-    {#                </div>#}
                 </div>
             </div>
-        </div>
-    </div>
-
-
-
-    {#        <article class="media content-section">#}
-    {#          <div class="media-body">#}
-    {#            <div class="article-metadata">#}
-    {#              <a class="mr-2" href="{% url 'article-detail' post.author.username %}">{{ post.author }}</a>#}
-    {#                <iframe src=""></iframe>#}
-    {#                <h3 class="article-content">{{ article.heading }}</h3>#}
-    {#                <img src="{{ article.img_url }}">#}
-    {#                <small class="text-muted">{{ article.date_posted|date:"F d, Y" }}</small>#}
-    {#            </div>#}
-    {#            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>#}
-    {#              <p class="article-content"><b>Category: </b><a href="{% url 'category' post.category %}">{{ post.category }}</a>#}
-    {#              </p>#}
-    {##}
-    {##}
-    {#          </div>#}
-    {#        </article>#}
         {% endfor %}
-
+    {% else %}
+        <h2 class="text-center"> The Sport You Tried To Search Does Not Exists For Now</h2>
+    {% endif %}
 
 {#    {% if is_paginated %}#}
 {#        {% if page_obj.has_previous %}#}

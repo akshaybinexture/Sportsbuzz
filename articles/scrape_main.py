@@ -77,7 +77,7 @@ def articles():
                     # print(f'img_url= {img_url}')
                     # category = link.split('/')[3]
 
-                    category = sport.capitalize()
+                    category = sport
                     print(f'category = {category}')
                     # date, img_url = article_detail(link, driver)
                     arti = {

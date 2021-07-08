@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 # from .scrape_main import main
-from .models import Article, Article_detail, Comment
+from .models import Article, Article_detail, Comment, Category
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.views.generic import (
     DetailView,
@@ -12,13 +12,14 @@ from django.http import HttpResponseRedirect
 
 
 def home(request):
-    topic = request.GET.get('sports')
+    # topic = request.GET.get('sports')
     object_list = Article.objects.all()
-    if topic == "All":
-        object_list = Article.objects.all()
-
-    elif topic:
-        object_list = Article.objects.filter(category=topic)
+    cat_menu = Category.objects.all()
+    # if topic == "All":
+    #     object_list = Article.objects.all()
+    #
+    # elif topic:
+    #     object_list = Article.objects.filter(category=topic)
 
     # main()
     # context = {
@@ -34,12 +35,20 @@ def home(request):
     except EmptyPage:
         # If page is out of range deliver last page of results
         post_list = paginator.page(paginator.num_pages)
+    # return render(request,
+    #               'articles/home.html',
+    #               {'page': page,
+    #                'post_list': post_list,
+    #                'topic': topic,
+    #                'nbar': 'home',
+    #                'cat_menu': cat_menu},
+    #               )
     return render(request,
                   'articles/home.html',
                   {'page': page,
                    'post_list': post_list,
-                   'topic': topic,
-                   'nbar': 'home'},
+                   'nbar': 'home',
+                   'cat_menu': cat_menu},
                   )
 
 
@@ -90,6 +99,32 @@ def add_comment(request, **kwargs):
     else:
         form = CommentForm(request.POST)
     return redirect('article-detail', a_id)
+
+
+def categoryview(request, cats):
+
+    category_posts = Article.objects.filter(category=cats)
+    cat_menu = Category.objects.all()
+    paginator = Paginator(category_posts, 10)  # 3 posts in each page
+    page = request.GET.get('page')
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer deliver the first page
+        post_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        post_list = paginator.page(paginator.num_pages)
+
+    return render(request, 'articles/categories.html', {'cats': cats,
+                                                        'category_posts': category_posts,
+                                                        'page': page,
+                                                        'post_list': post_list,
+                                                        'cat_menu': cat_menu
+                                                        })
+
+
+
 
 def contact(request):
     return render(request, 'articles/contact.html')
