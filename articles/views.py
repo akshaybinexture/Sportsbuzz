@@ -165,6 +165,10 @@ def categoryview(request, cats):
 def contact(request):
     return render(request, 'articles/contact.html')
 
+def about(request):
+    return render(request, 'articles/about.html')
+
+
 
 # def article_detail(request):
 #     return render(request, 'articles/article_detail.html')

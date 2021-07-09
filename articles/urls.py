@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import (
-    home, contact, article_details, likeview, categoryview, latest_article
-# , article_detail
+    home, contact, article_details, likeview, categoryview, latest_article, about
 )
 from . import views
 
@@ -13,7 +12,7 @@ urlpatterns = [
     path('article-detail/<int:pk>/comment/', views.add_comment, name='add-comment'),
     path('sport/<str:cats>/', categoryview, name='category'),
     path('latest/', latest_article, name='latest-article'),
-
+    path('about/', about, name='about'),
     # path('article-detail/', article_detail, name='article-detail')
 
 ]
