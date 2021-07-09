@@ -65,7 +65,7 @@
 
 
 
-
+                {% if user.is_authenticated %}
                 <form method="POST" action="{% url 'add-comment' article_id.article_detail_id.article_id %}" class="mt-5">
                     {% csrf_token %}
                     <div class="form-group">
@@ -74,15 +74,16 @@
                     </div>
                     <button class="btn btn-primary btn-sm"style="margin-top: 11px;" type="submit">Add</button>
                 </form>
+                {% endif %}
 
             </div>
             <div class="col-md-6 ">
                 <p style="color: grey">
                     Posted on {{ article_id.date_posted }}
                 </p>
+                {% if user.is_authenticated %}
                 <form action="{% url 'like_article' article_id.article_detail_id.article_id %}" method="POST" style="margin: 2rem 0;">
                     {% csrf_token %}
-                    {% if user.is_authenticated %}
                         {% if liked %}
                             <button type="submit", name="post_id", value="{{ article_id.article_detail_id.article_id }}",
                                 class="btn btn-danger btn-sm mr-2"><i class="fa fa-thumbs-down" aria-hidden="true"></i> Unlike
@@ -95,14 +96,16 @@
                     {% else %}
                         <button class="btn btn-primary btn-sm mr-2"><i class="fa fa-thumbs-up" aria-hidden="true"></i>
                         <a href="{% url 'login' %}">LOGIN</a>
+
                         </button>
                     {% endif %}
                         {% if total_likes > 0 %}
                             {{ total_likes }}
                         {% endif %}
                 </form>
-            <br>
-            <div class="fb-share-button" data-href="https://sport-buzz.herokuapp.com/article-detail/{{ article_id.article_detail_id.article_id }}/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Farticle-detail%2F856383%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
+            <div class="fb-share-button mb-4" data-href="https://sport-buzz.herokuapp.com/article-detail/{{ article_id.article_detail_id.article_id }}/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Farticle-detail%2F856383%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
                 {% if article_id.tweet_url  %}
 {#                    <div class="akshay-embed" data-src="twitter">#}
 {#                        <div class="twitter-tweet twitter-tweet-rendered">#}

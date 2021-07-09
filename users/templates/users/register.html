@@ -4,12 +4,12 @@
 {% block content %}
     <div class="container">
     {% if form.errors %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <p style="color: red"> {{ error }} </p>
-                {% endfor %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <p style="color: red"> {{ error }} </p>
             {% endfor %}
-        {% endif %}
+        {% endfor %}
+    {% endif %}
     </div>
     <div id="login-box">
 

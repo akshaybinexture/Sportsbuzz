@@ -6,6 +6,7 @@ from django.views.generic import (
     DetailView,
     ListView
    )
+from django.contrib.auth.decorators import login_required
 from .form import CommentForm
 from django.http import HttpResponseRedirect
 # Create your views here.
