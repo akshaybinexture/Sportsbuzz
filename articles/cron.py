@@ -14,14 +14,18 @@ import requests
 
 from datetime import datetime, timedelta
 
-
-GOOGLE_CHROME_PATH = "/app/.apt/usr/bin/google-chrome"
-CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.binary_location = GOOGLE_CHROME_PATH
-driver = webdriver.Chrome(CHROMEDRIVER_PATH, chrome_options=chrome_options)
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+
+# GOOGLE_CHROME_PATH = "/app/.apt/usr/bin/google-chrome"
+# CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.add_argument('--disable-gpu')
+# chrome_options.add_argument('--no-sandbox')
+# chrome_options.binary_location = GOOGLE_CHROME_PATH
+# driver = webdriver.Chrome(CHROMEDRIVER_PATH, chrome_options=chrome_options)
 
 def iso_time_cal(z):
     datetime_object = datetime.strptime(z, "%Y-%m-%dT%H:%M:%S%z")
@@ -50,8 +54,10 @@ def time_cal(string):
     print('date_posted: ', str(date_posted))
     print(type(date_posted))
     return date_posted
+from pyvirtualdisplay import Display
 
-
+# display = Display(visible=0, size=(800, 600))
+# display.start()
 arti_list = []
 arti_detail_list = []
 links = []
@@ -59,6 +65,9 @@ pages = 1
 sports = ['cricket', 'football', 'wwe', 'tennis', 'basketball']
 # chrome_options = webdriver.ChromeOptions()
 # driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome("/usr/bin/chromedriver", chrome_options= chrome_options)
+
+
 def articles():
     for sport in sports:
         for page in range(1, pages + 1):
