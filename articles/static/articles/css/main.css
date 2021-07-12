@@ -11018,3 +11018,21 @@ button.social-signin.google {
 .komen {
     font-size:14px;
 }
+
+.custom-blackquote{
+  background-position: 0 0;
+  display: block;
+  font-weight: normal;
+  font-family: Georgia, serif;
+  background-repeat: no-repeat;
+  line-height: 32px;
+  color: #4c4c4c;
+  font-size: 19px !important;
+  border-radius: 6px;
+  background-position-x: 10px;
+  background: linear-gradient(45deg, #f3fff9, #abcae43d);
+  float: left;
+  font-style: italic;
+  clear: both;
+  padding-left: 14px;
+}

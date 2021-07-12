@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 from allauth.account.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib.auth import update_session_auth_hash
@@ -12,6 +13,19 @@ from .models import Profile
 
 def register(request):
     if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+
+        username = username.lower()
+        email = email.lower()
+
+        if User.objects.filter(username=username).exists():
+            messages.warning(request, 'That username is taken')
+            return redirect('register')
+        else:
+            if User.objects.filter(email=email).exists():
+                messages.warning(request, 'That email is taken')
+                return redirect('register')
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()

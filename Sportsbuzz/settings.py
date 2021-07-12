@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_apscheduler',
 
     # for social authentication
     'django.contrib.sites',
@@ -55,6 +56,8 @@ INSTALLED_APPS = [
 
 
 ]
+
+APSCHEDULER_RUN_NOW_TIMEOUT = 3600
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
