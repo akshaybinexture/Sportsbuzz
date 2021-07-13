@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 # from .scrape_main import main
 from .models import Article, Article_detail, Comment, Category
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib import messages, auth
 from django.views.generic import (
     DetailView,
     ListView
@@ -9,6 +10,7 @@ from django.views.generic import (
 from django.contrib.auth.decorators import login_required
 from .form import CommentForm
 from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
 # Create your views here.
 
 
@@ -218,6 +220,16 @@ def categoryview(request, cats):
 
 
 def contact(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        contact_number = request.POST['contact-number']
+        message = request.POST['message']
+        total_message = f'{message}\nEmail: {email}\nContact me at: {contact_number}'
+        # print(name,email,contact_number,message)
+        send_mail(name, total_message, email, ['bajethaakshay@gmail.com'])
+        messages.success(request, f'Thank You For Contacting US. We Will Contact You Soon')
+
     return render(request, 'articles/contact.html')
 
 def about(request):
