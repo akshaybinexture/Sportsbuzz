@@ -15,6 +15,7 @@ from django.core.mail import send_mail
 
 
 def home(request):
+    # main()
     # topic = request.GET.get('sports')
     cat_menu = Category.objects.all()
     # if request.method == 'POST':
@@ -101,8 +102,10 @@ def article_details(request, **kwargs):
     print(f'{article_id} = article_id')
     y = article_id.tweet_url
     tweets = eval(y)
-
+    print(article_id.tweet_url)
     print(tweets)
+    print(type(tweets['tweets']))
+    print(len(tweets['tweets']))
     context = {
         'article_id': article_id,
         'body': body['description'],
@@ -215,8 +218,6 @@ def categoryview(request, cats):
                                                         'post_list': post_list,
                                                         'cat_menu': cat_menu
                                                         })
-
-
 
 
 def contact(request):

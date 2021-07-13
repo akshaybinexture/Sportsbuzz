@@ -165,7 +165,7 @@ def article_detail(link):
                 EC.presence_of_element_located((By.TAG_NAME, "iframe"))).get_attribute('src')
             tweet_list.append(tweet)
     except:
-        tweet_list = None
+        tweet_list = []
     tweets = {
         'tweets': tweet_list
     }
