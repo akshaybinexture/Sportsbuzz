@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY_SPORTS')
-# SECRET_KEY = 'django-insecure-v!3rq=qqsk#@6jmj$4z(2gdo6z0pxq12#ng-kc#38wo9_))b&t'
+# SECRET_KEY = os.environ.get('SECRET_KEY_SPORTS')
+SECRET_KEY = 'django-insecure-v!3rq=qqsk#@6jmj$4z(2gdo6z0pxq12#ng-kc#38wo9_))b&t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -203,7 +203,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 CRONJOBS = [
-    ('30 */2 * * *', 'articles.cron.main_scrapping')
+    ('20 */2 * * *', 'articles.cron.main_scrapping')
 ]
 
 SITE_ID = 3

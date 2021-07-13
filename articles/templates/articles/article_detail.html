@@ -2,7 +2,7 @@
 {% block content %}
 <!-- Main Content-->
 
-    <section id="heading">
+    <section id="heading" style="margin-top: 109px;">
         <div class="container">
             <div class="row">
                 <div class="upper-section">
@@ -75,9 +75,7 @@
                     </div>
                     <button class="btn btn-primary btn-sm"style="margin-top: 11px;" type="submit">Add</button>
                 </form>
-                {% endif %}
-
-            </div>
+                {% endif %}</div>
             <div class="col-md-6 ">
                 <p style="color: grey">
                     Posted on {{ article_id.date_posted }}
@@ -107,15 +105,16 @@
 
             <div class="fb-share-button mb-4" data-href="https://sport-buzz.herokuapp.com/article-detail/{{ article_id.article_detail_id.article_id }}/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Farticle-detail%2F856383%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
 
-                {% if article_id.tweet_url  %}
+                {% if len_tweets > 0 %}
+            {% for i in tweets %}
 {#                    <div class="akshay-embed" data-src="twitter">#}
 {#                        <div class="twitter-tweet twitter-tweet-rendered">#}
-                            <iframe scrolling="no" src="{{ article_id.tweet_url }}" style="width: 100%;height :800px"></iframe>
+                            <iframe src="{{ i }}" style="width: 100%;height :500px; margin-bottom:10px "></iframe>
 {#<blockquote class="twitter-tweet"><p lang="en" dir="ltr">&quot;Indian team management wants Prithvi Shaw and Devdutt Padikkal to join the Test squad for the Test Series against England.&quot; - According to PTI</p>&mdash; CricketMAN2 (@man4_cricket) <a href="https://twitter.com/man4_cricket/status/1412025277757071362?ref_src=twsrc%5Etfw">July 5, 2021</a></blockquote><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>#}
 {#<blockquote class="twitter-tweet"><p lang="en" dir="ltr">&quot;Indian team management wants Prithvi Shaw and Devdutt Padikkal to join the Test squad for the Test Series against England.&quot; - According to PTI</p>&mdash; CricketMAN2 (@man4_cricket) <a href="https://twitter.com/man4_cricket/status/1412025277757071362?ref_src=twsrc%5Etfw">July 5, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>#}
 {#<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Point guards to watch: Kyle Lowry, Mike Conley, Goran Dragic, Dennis Schroder, Patty Mills, Reggie Jackson, Spencer Dinwiddie, Lonzo Ball, Derrick Rose, Cameron Payne<br><br>Potential point guards: Damian Lillard, Chris Paul, Collin Sexton, Kemba Walker, Ben Simmons<br><br>Wild off-season.</p>&mdash; Farbod Esnaashari (@Farbod_E) <a href="https://twitter.com/Farbod_E/status/1412182833817260033?ref_src=twsrc%5Etfw">July 5, 2021</a></blockquote>#}
 {# <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>#}
-
+            {% endfor %}
                     {#                        </div>#}
 {#                    </div>#}
                 {% endif %}

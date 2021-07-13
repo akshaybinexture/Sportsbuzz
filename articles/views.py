@@ -97,9 +97,15 @@ def article_details(request, **kwargs):
     x = article_id.description
     body = eval(x)
     print(f'{article_id} = article_id')
+    y = article_id.tweet_url
+    tweets = eval(y)
+
+    print(tweets)
     context = {
         'article_id': article_id,
         'body': body['description'],
+        'tweets': tweets['tweets'],
+        'len_tweets': len(tweets['tweets']),
         'total_likes': total_likes,
         'liked': liked,
         'form': CommentForm()
@@ -119,6 +125,55 @@ def likeview(request, article_id):
         liked = True
     print(f'article{article}')
     return redirect('article-detail', article_id)
+
+
+
+#
+# def add_comment(request, **kwargs):
+#     a_id = kwargs.get('pk')
+#     print(f'a_id {a_id}')
+#     post = get_object_or_404(Article, article_id=a_id)
+#     comments = post.comments.filter(parent__isnull=True)
+#     if request.method == 'POST':
+#         form = CommentForm(request.POST)
+#         if form.is_valid():
+#             parent_obj = None
+#             try:
+#                 # id integer e.g. 15
+#                 parent_id = int(request.POST.get('parent_id'))
+#                 print(f'{parent_id} = parent id')
+#             except:
+#                 parent_id = None
+#                 print(f'{parent_id} = parent id')
+#
+#                 # if parent_id has been submitted get parent_obj id
+#             if parent_id:
+#                 parent_obj = Comment.objects.get(id=parent_id)
+#                 print(f'{parent_obj} parent_obj')
+#                 # if parent object exist
+#                 if parent_obj:
+#                     # create replay comment object
+#                     replay_comment = form.save(commit=False)
+#                     # assign parent_obj to replay comment
+#                     replay_comment.parent = parent_obj
+#             form.instance.article_id = a_id
+#             form.instance.name = request.user
+#             form.save()
+#             # normal comment
+#             # create comment object but do not save to database
+#             new_comment = form.save(commit=False)
+#
+#             # assign ship to the comment
+#             new_comment.post = post
+#             # save
+#             new_comment.save()
+#
+#
+#             return redirect('article-detail', a_id)
+#     else:
+#         form = CommentForm(request.POST)
+#     return redirect('article-detail', a_id)
+#
 
 
 def add_comment(request, **kwargs):

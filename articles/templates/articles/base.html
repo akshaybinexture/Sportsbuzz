@@ -22,7 +22,7 @@
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav" style="border-bottom: 1px solid transparent;background: #020202;">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="{% url 'home' %}">Sports Buzz</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,15 +53,10 @@
             </div>
         </nav>
 
-
-
-
-
-        <!-- Page Header-->
-        <header class="masthead" style="background-image: url('{% static 'articles/images/wall.jpg' %}')">
-            {% if messages %}
+        <!-- for messages-->
+        {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}" style="bottom: 139px;">
+                <div class="alert alert-{{ message.tags }}" style="margin-top: 82px;margin-bottom: 0px;">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -70,17 +65,33 @@
 
             {% endfor %}
         {% endif %}
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1>SPORTS</h1>
-                            <span class="subheading">BY AKSHAY</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+
+
+
+        <!-- Page Header-->
+{#        <header class="masthead" style="background-image: url('{% static 'articles/images/wall.jpg' %}')">#}
+{#            {% if messages %}#}
+{#            {% for message in messages %}#}
+{#                <div class="alert alert-{{ message.tags }}" style="bottom: 139px;">#}
+{#                <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                  <span aria-hidden="true">&times;</span>#}
+{#                </button>#}
+{#                {{ message }}#}
+{#                </div>#}
+{##}
+{#            {% endfor %}#}
+{#        {% endif %}#}
+{#            <div class="container position-relative px-4 px-lg-5">#}
+{#                <div class="row gx-4 gx-lg-5 justify-content-center">#}
+{#                    <div class="col-md-10 col-lg-8 col-xl-7">#}
+{#                        <div class="site-heading">#}
+{#                            <h1>SPORTS</h1>#}
+{#                            <span class="subheading">BY AKSHAY</span>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </header>#}
 
         {% block content %}{% endblock %}
 

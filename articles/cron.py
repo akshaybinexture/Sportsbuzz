@@ -119,6 +119,7 @@ def article_detail(link):
     # chrome_options = webdriver.ChromeOptions()
     # driver = webdriver.Chrome(options=chrome_options)
     para_list = []
+    tweet_list = []
     driver.get(link)
     source = requests.get(link).text
     soup = BeautifulSoup(source, 'lxml')
@@ -165,17 +166,31 @@ def article_detail(link):
         'description': para_list
     }
     print(description)
-    try:
-        tweet_url = section.find_element_by_css_selector('#twitter-widget-0').get_attribute('src')
 
+    try:
+        tweet_urls = section.find_elements_by_css_selector('.sportskeeda-embed')
+        for i in tweet_urls:
+            tweet = WebDriverWait(i, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "iframe"))).get_attribute('src')
+            tweet_list.append(tweet)
     except:
-        NoSuchElementException
-        tweet_url = None
-    print(f'tweet_url: {tweet_url}')
+        tweet_list = None
+    tweets = {
+        'tweets': tweet_list
+    }
+    print(f'{tweets}: tweets')
+
+    # try:
+    #     tweet_url = section.find_element_by_css_selector('#twitter-widget-0').get_attribute('src')
+    #
+    # except:
+    #     NoSuchElementException
+    #     tweet_url = None
+    # print(f'tweet_url: {tweet_url}')
     article_id_detail = section.get_attribute('data-slug-id')
     print(f'article_id_detail = {article_id_detail}')
     arti_detail = {
-        'article_id_detail': article_id_detail, 'heading': heading, 'img_url': img_url, 'time': cal_time, 'description': description, 'tweet_url': tweet_url
+        'article_id_detail': article_id_detail, 'heading': heading, 'img_url': img_url, 'time': cal_time, 'description': description, 'tweet_url': tweets
     }
     arti_detail_list.append(arti_detail)
     # driver.close()

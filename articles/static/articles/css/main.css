@@ -10657,7 +10657,7 @@ blockquote {
   }
   #mainNav.is-visible {
     /* if the user changes the scrolling direction, we show the header */
-    transform: translate3d(0, 100%, 0);
+    /*transform: translate3d(0, 100%, 0);*/
   }
 }
 

@@ -99,6 +99,7 @@ def article_detail(link):
     # chrome_options = webdriver.ChromeOptions()
     # driver = webdriver.Chrome(options=chrome_options)
     para_list = []
+    tweet_list = []
     driver.get(link)
     source = requests.get(link).text
     soup = BeautifulSoup(source, 'lxml')
@@ -146,16 +147,28 @@ def article_detail(link):
     }
     print(description)
     try:
-        tweet_url = section.find_element_by_css_selector('#twitter-widget-0').get_attribute('src')
-
+        tweet_urls = section.find_elements_by_css_selector('.sportskeeda-embed')
+        for i in tweet_urls:
+            tweet = WebDriverWait(i, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "iframe"))).get_attribute('src')
+            tweet_list.append(tweet)
     except:
-        NoSuchElementException
-        tweet_url = None
-    print(f'tweet_url: {tweet_url}')
+        tweet_list = None
+    tweets = {
+        'tweets': tweet_list
+    }
+    print(f'{tweets}: tweets')
+    # try:
+    #     tweet_url = section.find_element_by_css_selector('#twitter-widget-0').get_attribute('src')
+    #
+    # except:
+    #     NoSuchElementException
+    #     tweet_url = None
+    # print(f'tweet_url: {tweet_url}')
     article_id_detail = section.get_attribute('data-slug-id')
     print(f'article_id_detail = {article_id_detail}')
     arti_detail = {
-        'article_id_detail': article_id_detail, 'heading': heading, 'img_url': img_url, 'time': cal_time, 'description': description, 'tweet_url': tweet_url
+        'article_id_detail': article_id_detail, 'heading': heading, 'img_url': img_url, 'time': cal_time, 'description': description, 'tweet_url': tweets
     }
     arti_detail_list.append(arti_detail)
     # driver.close()
@@ -169,7 +182,7 @@ def save_function(arti_list):
 
     for art in arti_list:
         try:
-            Article.objects.create(
+            Article.objects.get_or_create(
                 article_id=art['article_id'],
                 heading=art['heading'],
                 article_link=art['link'],
@@ -189,7 +202,7 @@ def save_function(arti_list):
             # obj = ModelA.objects.create(phone=data['phone'], user=user)
             article = Article.objects.only('article_id').get(article_id=arti_list[i]['article_id'])
             # obj = Article_detail.objects.create(phone=data['phone'], user=user)
-            Article_detail.objects.create(
+            Article_detail.objects.get_or_create(
                 article_detail_id=article,
                 heading=arti_detail_list[i]['heading'],
                 img_url=arti_detail_list[i]['img_url'],
