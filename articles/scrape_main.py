@@ -88,6 +88,8 @@ def articles():
                     continue
                 except NoSuchElementException:
                     continue
+                except StaleElementReferenceException:
+                    continue
     return arti_list
 
 
